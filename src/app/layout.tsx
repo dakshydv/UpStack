@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Sawarabi_Gothic } from "next/font/google";
+import SessionWrapper from "../components/SessionWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -10,6 +12,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const sawarabiGothic = Sawarabi_Gothic({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-sawarabi-gothic",
 });
 
 export const metadata: Metadata = {
@@ -25,9 +33,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${sawarabiGothic.variable} antialiased bg-black`}
       >
-        {children}
+        <SessionWrapper>{children}</SessionWrapper>
       </body>
     </html>
   );
