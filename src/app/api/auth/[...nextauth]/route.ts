@@ -1,3 +1,4 @@
+import { UserModel } from "@/lib/models";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -19,6 +20,21 @@ const handler = NextAuth({
     async redirect({ url, baseUrl }) {
       return "/dashboard";
     },
+    // @ts-ignore
+    async signIn({ user }) {
+      const existingUser = await UserModel.findOne({
+        name: user.name,
+        email: user.email
+      })
+      if (existingUser) {
+        return true
+      }
+      UserModel.create({
+        name: user.name,
+        email: user.email
+      })
+      return true
+    }
   },
 });
 
