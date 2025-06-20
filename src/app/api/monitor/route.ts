@@ -1,8 +1,10 @@
 import { MonitorModel, UserModel } from "@/lib/models";
 import { NextRequest, NextResponse } from "next/server";
+import mongoose from "mongoose";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
+  const email = body.email;
   const url = body.url;
   const alertOn = body.alertOn;
   const keyword = body.keyword;
@@ -10,11 +12,12 @@ export async function POST(req: NextRequest) {
 
   // temporary code
   const user = await UserModel.findOne({
-    email: "keshav.julmee@gmail.com",
+    email,
   });
 
   // @ts-ignore
-  const ownerId = user._id;
+  const owner = user._id;
+  const ownerId = new mongoose.Types.ObjectId(owner);
 
   try {
     const existingMonitor = await MonitorModel.findOne({

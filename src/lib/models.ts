@@ -53,7 +53,11 @@ const MonitorSchema = new mongoose.Schema({
   },
 });
 
+// export const UserModel = mongoose.models.User || mongoose.model("User", UserSchema);
+// export const MonitorModel = mongoose.models.Monitor || mongoose.model("Monitor", MonitorSchema);
 export const UserModel =
-  mongoose.models.User || mongoose.model("User", UserSchema);
+  (mongoose.models && mongoose.models.User) ||
+  mongoose.model("User", UserSchema);
 export const MonitorModel =
-  mongoose.models.Monitor || mongoose.model("Monitor", MonitorSchema);
+  (mongoose.models && mongoose.models.Monitor) ||
+  mongoose.model("Monitor", MonitorSchema);

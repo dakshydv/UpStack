@@ -24,17 +24,17 @@ const handler = NextAuth({
     async signIn({ user }) {
       const existingUser = await UserModel.findOne({
         name: user.name,
-        email: user.email
-      })
+        email: user.email,
+      });
       if (existingUser) {
-        return true
+        return true;
       }
       UserModel.create({
         name: user.name,
-        email: user.email
-      })
-      return true
-    }
+        email: user.email,
+      });
+      return true;
+    },
   },
 });
 

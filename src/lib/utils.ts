@@ -1,6 +1,7 @@
 import axios from "axios";
-import { MonitorModel } from "./models";
+import { MonitorModel, UserModel } from "./models";
 import mongoose from "mongoose";
+import dbConnect from "./mongodb";
 
 export interface MonitorDetailsProps {
   _id: mongoose.ObjectId;
@@ -33,7 +34,7 @@ export async function GetWebsiteStatus() {
         });
         console.log(`${monitor.url} is up`);
 
-        if (monitor.statusCode !== response.status && monitor.status !== "up") {
+        if (monitor.statusCode !== response.status || monitor.status !== "up") {
           await MonitorModel.updateOne(
             {
               url: monitor.url,
@@ -62,4 +63,18 @@ export async function GetWebsiteStatus() {
   } catch (err) {
     console.log("there is an error");
   }
+}
+
+export async function GetMonitors(email: string) {
+  await dbConnect();
+  const user = await UserModel.findOne({
+    email,
+  });
+  const ownerId = user._id;
+
+  const userMonitors = await MonitorModel.find({
+    ownerId,
+  });
+
+  return userMonitors;
 }

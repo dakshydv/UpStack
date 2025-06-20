@@ -3,5 +3,7 @@ import { GetWebsiteStatus } from "./lib/utils";
 
 export async function register() {
   await dbConnect();
-  GetWebsiteStatus();
+  setInterval(() => {
+    GetWebsiteStatus();
+  }, 10 * 1000);
 }
