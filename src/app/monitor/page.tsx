@@ -30,15 +30,6 @@ export default function Dashboard() {
     }, 5000);
   }
 
-  const getMonitors = async (email: string) => {
-    console.log(`user email is ${email}`);
-    
-    const response = await axios.post("/api/monitordetails", {
-      mail: email,
-    });
-    setUserMonitors(response.data.userMonitors);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950">
       {!session?.user?.email && (
