@@ -23,7 +23,6 @@ export interface UserProps {
 
 export async function GetWebsiteStatus() {
   try {
-    let urls: string[] = [];
     const monitors: MonitorDetailsProps[] = await MonitorModel.find();
     monitors.forEach(async (monitor) => {
       try {
@@ -46,7 +45,7 @@ export async function GetWebsiteStatus() {
           );
         }
       } catch (err) {
-        console.log(`${monitor.url} is down`);
+        console.log(`${monitor.url} is down with error ${err}`);
         await MonitorModel.updateMany(
           {
             url: monitor.url,
@@ -58,10 +57,8 @@ export async function GetWebsiteStatus() {
         );
       }
     });
-    console.log(urls);
-    return urls;
   } catch (err) {
-    console.log("there is an error");
+    console.log(`there is an error ${err}`);
   }
 }
 

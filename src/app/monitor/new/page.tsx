@@ -52,7 +52,7 @@ export default function New() {
     setIsUrlValid(true);
     setCreatingMonitor(true);
     try {
-      const response = await axios.post("/api/monitor", {
+      await axios.post("/api/monitor", {
         email: session?.user?.email,
         url,
         alertOn: selectedCondition,

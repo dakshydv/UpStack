@@ -5,19 +5,34 @@ import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Plus, BarChart3, Settings, Bell, ArrowLeft, CheckCircle } from "lucide-react";
+import { Plus, BarChart3, Settings, Bell, CheckCircle } from "lucide-react";
 
 export default function Dashboard() {
   const { data: session } = useSession();
   const [userMonitors, setUserMonitors] = useState<MonitorDetailsProps[]>([]);
 
   useEffect(() => {
-    if (session?.user && session?.user?.name) {
-      getMonitors(session.user.name);
+    if (session?.user?.email) {
+      pollUpdates(session.user.email)
+      // getMonitors(session.user.email)
     }
   }, [session?.user?.name]);
 
+  const pollUpdates = async (email: string) => {
+    console.log(`email is ${email}`);
+    
+    const response = await axios.post("/api/monitordetails", {
+      mail: email
+    })
+    setUserMonitors(response.data.userMonitors)
+    setTimeout(() => {
+      pollUpdates(email)
+    }, 5000);
+  }
+
   const getMonitors = async (email: string) => {
+    console.log(`user email is ${email}`);
+    
     const response = await axios.post("/api/monitordetails", {
       mail: email,
     });
@@ -74,7 +89,7 @@ export default function Dashboard() {
                 </span>
               </h1>
               <p className="text-xl text-gray-400">
-                Here's an overview of your website monitors
+                Here&#39;s an overview of your website monitors
               </p>
             </div>
 
@@ -160,7 +175,7 @@ export default function Dashboard() {
                 No monitors yet
               </h3>
               <p className="text-gray-400 mb-8 max-w-md mx-auto">
-                Get started by creating your first website monitor. We'll help
+                Get started by creating your first website monitor. We&#39;ll help
                 you keep track of your websites and alert you when they go down.
               </p>
               <Link

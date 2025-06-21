@@ -53,7 +53,7 @@ export default function Home() {
           <div className="mt-6 sm:mt-8 gap-3 sm:gap-4 flex flex-col sm:flex-row justify-center">
             {session?.user?.name ? (
               <Link
-                href={"/dashboard"}
+                href={"/monitor"}
                 className="bg-gray-700 hover:cursor-pointer font-medium px-4 sm:px-5 py-2 sm:py-3 text-lg sm:text-xl rounded-md text-white"
               >
                 Try for Free!
