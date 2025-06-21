@@ -30,11 +30,7 @@ const MonitorSchema = new mongoose.Schema({
     required: true,
   },
   alertOn: {
-    type: [
-      {
-        type: String,
-      },
-    ],
+    type: String,
     required: true,
   },
   keyword: {

@@ -5,5 +5,5 @@ export async function register() {
   await dbConnect();
   setInterval(() => {
     GetWebsiteStatus();
-  }, 10 * 1000);
+  }, 60 * 1000);
 }

@@ -2,6 +2,7 @@ import { MonitorModel, UserModel } from "@/lib/models";
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 
+// create new monitor
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const email = body.email;
@@ -15,7 +16,6 @@ export async function POST(req: NextRequest) {
     email,
   });
 
-  // @ts-ignore
   const owner = user._id;
   const ownerId = new mongoose.Types.ObjectId(owner);
 

@@ -17,10 +17,9 @@ const handler = NextAuth({
     maxAge: 60 * 60 * 24 * 10,
   },
   callbacks: {
-    async redirect({ url, baseUrl }) {
-      return "/dashboard";
+    async redirect() {
+      return "/monitor";
     },
-    // @ts-ignore
     async signIn({ user }) {
       const existingUser = await UserModel.findOne({
         name: user.name,
