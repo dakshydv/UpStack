@@ -42,7 +42,6 @@ export default async function Dashboard() {
     }
   } catch (error) {
     console.error("Error fetching monitors:", error);
-    // Continue with empty monitors array
   }
 
   return (
@@ -72,10 +71,8 @@ export default async function Dashboard() {
           </div>
         </div>
       )}
-      {/* Background Effects */}
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
-        {/* Header */}
         <header className="mb-12">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
             <div>
