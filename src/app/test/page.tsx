@@ -16,7 +16,7 @@ export default function Test() {
     );
     console.log(getMonitors);
 
-    // @ts-ignore
+    // @ts-expect-error/getmonitor-type-unknown
     setWebsiteData(getMonitors);
   }
   console.log(websiteData);

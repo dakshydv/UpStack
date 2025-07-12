@@ -15,7 +15,7 @@ export default async function Dashboard() {
     email: session?.user?.email,
   });
 
-  // @ts-expect-error
+  // @ts-expect-error/website-type-unknown
   const userMonitors = getMonitors.data?.websites;
 
   return (

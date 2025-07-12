@@ -29,7 +29,7 @@ async function fetchWebsiteData() {
   );
 
   if (res) {
-    // @ts-expect-error
+    // @ts-expect-error/res-type-unknown
     for (const stream of res) {
       for (const message of stream.messages) {
         const id = message.id;
