@@ -14,7 +14,8 @@ export default async function Dashboard() {
   const getMonitors = await axios.post(infoUrl, {
     email: session?.user?.email,
   });
-  //   @ts-ignore
+
+  // @ts-expect-error
   const userMonitors = getMonitors.data?.websites;
 
   return (

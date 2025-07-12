@@ -16,7 +16,7 @@ setInterval(() => {
 }, 10 * 1000);
 
 async function fetchWebsiteData() {
-  const res: any = await redisClient.xReadGroup(
+  const res = await redisClient.xReadGroup(
     "first",
     "first",
     {
@@ -29,6 +29,7 @@ async function fetchWebsiteData() {
   );
 
   if (res) {
+    // @ts-expect-error
     for (const stream of res) {
       for (const message of stream.messages) {
         const id = message.id;

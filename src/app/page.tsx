@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { MonitorChild } from "@/components/MonitorChild";
 import { SignInButton } from "@/components/SignInButton";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -48,23 +48,6 @@ export default function Home() {
             Get instant alerts when your website goes down—so you can fix it
             fast and keep your business running smoothly.
           </h3>
-          {/* <div className="mt-6 sm:mt-8 gap-3 sm:gap-4 flex flex-col sm:flex-row justify-center">
-            {session?.user?.name ? (
-              <Link
-                href={"/monitor"}
-                className="bg-gray-700 hover:cursor-pointer font-medium px-4 sm:px-5 py-2 sm:py-3 text-lg sm:text-xl rounded-md text-white"
-              >
-                Try for Free!
-              </Link>
-            ) : (
-              <SignInButton className="bg-slate-900 hover:cursor-pointer font-medium px-4 sm:px-5 py-2 sm:py-3 text-lg sm:text-xl rounded-md text-white">
-                Try for Free!
-              </SignInButton>
-            )}
-            <button className="bg-gray-200 hover:cursor-pointer font-medium px-4 sm:px-5 py-2 sm:py-3 text-lg sm:text-xl rounded-md text-black">
-              Learn more!
-            </button>
-          </div> */}
         </div>
         <div>
           {/* <Monitor /> */}
