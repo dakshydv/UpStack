@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { NextAuthOptions } from "next-auth";
 import { prisma } from "../../../../lib/utils";
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -44,7 +44,7 @@ const authOptions: NextAuthOptions = {
       }
     },
     async redirect({ baseUrl }) {
-      return `${baseUrl}`;
+      return `${baseUrl}/monitor`;
     },
   },
 };

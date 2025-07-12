@@ -1,4 +1,4 @@
-import { PrismaClient } from "@/generated/prisma/index.js";
+import { PrismaClient } from "@/generated/prisma";
 import { createClient } from "redis";
 
 export interface websitesProps {
@@ -30,7 +30,9 @@ const username = process.env.USERNAME;
 const password = process.env.PASSWORD;
 const host = process.env.HOST || "";
 
-export const prisma = new PrismaClient();
+export const prisma = new PrismaClient({
+  log: ["query", "info", "warn", "error"],
+});
 
 export const redisClient = createClient({
   username,
@@ -42,7 +44,10 @@ export const redisClient = createClient({
   },
 });
 
-redisClient.connect();
+// Only connect to Redis if credentials are provided
+if (username && password && host) {
+  redisClient.connect().catch(console.error);
+}
 
 async function xAdd({ url, id }: websitesProps) {
   await redisClient.xAdd("upstack:webapp", "*", {

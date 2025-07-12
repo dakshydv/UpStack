@@ -1,22 +1,49 @@
 import { Monitor } from "@/components/Monitor";
 import { MonitorDetailsProps } from "@/lib/utils";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { Plus, BarChart3, Settings, Bell, CheckCircle } from "lucide-react";
 import { getServerSession } from "next-auth";
-import axios from "axios";
-
-const infoUrl =
-  process.env.INFO_URL || "http://localhost:3000/api/info/websites";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import { prisma } from "@/lib/utils";
 
 export default async function Dashboard() {
-  const session = await getServerSession();
-  const getMonitors = await axios.post(infoUrl, {
-    email: session?.user?.email,
-  });
+  const session = await getServerSession(authOptions);
 
-  // @ts-expect-error/website-type-unknown
-  const userMonitors = getMonitors.data?.websites;
+  let userMonitors: MonitorDetailsProps[] = [];
+
+  try {
+    if (session?.user?.email) {
+      const user = await prisma.user.findFirst({
+        where: {
+          email: session.user.email,
+        },
+      });
+
+      if (user) {
+        const websites = await prisma.website.findMany({
+          where: {
+            userId: user.id,
+          },
+        });
+
+        userMonitors = websites.map((website) => ({
+          id: website.id,
+          userId: website.userId,
+          url: website.url,
+          status: website.status,
+          alertOn: website.alertOn,
+          keyword: website.keyword,
+          expectedStatus: website.expectedStatus,
+          statusCode: website.statusCode,
+          responseTime: website.responseTime,
+          lastUpdated: website.lastUpdated.toISOString(),
+        }));
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching monitors:", error);
+    // Continue with empty monitors array
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950">
@@ -34,20 +61,12 @@ export default async function Dashboard() {
                 Please signin to create monitor
               </p>
               <div className="space-y-4">
-                {/* <Link
-                  href="/monitor"
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center justify-center space-x-2"
-                >
-                  <span>Sign In</span>
-                </Link> */}
-                <button
-                  onClick={() => {
-                    signIn("google");
-                  }}
-                  className="w-full hover:cursor-pointer text-gray-400 hover:text-white px-6 py-3 rounded-xl border border-neutral-700 hover:border-neutral-600 transition-all duration-200"
+                <Link
+                  href="/api/auth/signin"
+                  className="w-full hover:cursor-pointer text-gray-400 hover:text-white px-6 py-3 rounded-xl border border-neutral-700 hover:border-neutral-600 transition-all duration-200 inline-block text-center"
                 >
                   Sign In
-                </button>
+                </Link>
               </div>
             </div>
           </div>
