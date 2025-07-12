@@ -3,7 +3,7 @@ import { MonitorDetailsProps } from "@/lib/utils";
 import Link from "next/link";
 import { Plus, BarChart3, Settings, Bell, CheckCircle } from "lucide-react";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../api/auth/[...nextauth]/options";
 import { prisma } from "@/lib/utils";
 
 export default async function Dashboard() {
