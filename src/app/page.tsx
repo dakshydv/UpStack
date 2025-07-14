@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { MonitorChild } from "@/components/MonitorChild";
-import { SignInButton } from "@/components/SignInButton";
 import { useSession } from "next-auth/react";
 
 export default function Home() {
@@ -23,7 +22,7 @@ export default function Home() {
             </Link>
           </div>
         ) : (
-          <SignInButton />
+          <Link href={"/signup"} className="px-4 sm:px-5 py-2 rounded text-gray-800 bg-gray-400 hover:cursor-pointer font-semibold shadow hover:bg-gray-100 transition text-sm sm:text-base">Get Started</Link>
         )}
       </header>
 

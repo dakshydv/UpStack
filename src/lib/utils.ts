@@ -6,6 +6,19 @@ export interface websitesProps {
   id: number;
 }
 
+export interface UserCredentials {
+  name: string,
+  email: string,
+  password: string
+}
+
+export interface AuthUser {
+  id: number,
+  name: string,
+  email: string,
+  password: string
+}
+
 export interface MonitorDetailsProps {
   id: number;
   userId: number;
