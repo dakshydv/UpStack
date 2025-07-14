@@ -21,18 +21,12 @@ export default function SignupPage() {
     setError("");
     setSuccess("");
     try {
-      //   const res = await fetch("/api/signup", {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify(form),
-      //   });
       const res = await axios.post("/api/auth/signup", {
         name: form.name,
         email: form.email,
         inputPassword: form.password,
       });
       const data = res.data;
-      //   if (!res.ok) throw new Error(data.message || "Signup failed");
       if (!data) {
         throw new Error("signup failed");
       }
