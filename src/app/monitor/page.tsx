@@ -102,7 +102,7 @@ export default async function Dashboard() {
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {/* total monitors */}
-          <div className="glass rounded-2xl p-6">
+          <div className="glass rounded-2xl border border-neutral-600 p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
                 <BarChart3 className="w-6 h-6 text-blue-400" />
@@ -118,7 +118,7 @@ export default async function Dashboard() {
           </div>
 
           {/* websites currently up */}
-          <div className="glass rounded-2xl p-6">
+          <div className="glass rounded-2xl border border-neutral-600 p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
                 <div className="w-3 h-3 bg-green-400 rounded-full"></div>
@@ -138,7 +138,7 @@ export default async function Dashboard() {
           </div>
 
           {/* websites with issues */}
-          <div className="glass rounded-2xl p-6">
+          <div className="glass rounded-2xl border border-neutral-600 p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center">
                 <Bell className="w-6 h-6 text-red-400" />
