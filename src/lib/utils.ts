@@ -1,4 +1,4 @@
-import { PrismaClient } from "@/generated/prisma";
+import { PrismaClient } from "@/generated/prisma/index.js";
 import { createClient } from "redis";
 
 export interface websitesProps {
@@ -43,9 +43,7 @@ const username = process.env.USERNAME;
 const password = process.env.PASSWORD;
 const host = process.env.HOST || "";
 
-export const prisma = new PrismaClient({
-  log: ["query", "info", "warn", "error"],
-});
+export const prisma = new PrismaClient();
 
 export const redisClient = createClient({
   username,
